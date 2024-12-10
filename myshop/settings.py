@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'shop.apps.ShopConfig',
     'cart.apps.CartConfig',
     'orders.apps.OrdersConfig',
+    'payment.apps.PaymentConfig',
 ]
 
 MIDDLEWARE = [
@@ -126,6 +127,13 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'shop', 'static'),  # Adjust the path if necessary
+]
+
+
 # STATICFILES_DIRS = [
 #     BASE_DIR / 'shop' / 'static',  # Correct way to join paths with pathlib
 # ]
@@ -138,4 +146,18 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 CART_SESSION_ID = 'cart'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Braintree settings
+BRAINTREE_MERCHANT_ID = 'xmw6tkjxj7gk64cc'  # Merchant ID
+BRAINTREE_PUBLIC_KEY = 'vqgg8vpgpxnk4x2g'   # Public Key
+BRAINTREE_PRIVATE_KEY = '8563117c85ec9642836dc035de4d7811'
+
+# Private key
+import braintree
+BRAINTREE_CONF = braintree.Configuration(
+    braintree.Environment.Sandbox,
+    BRAINTREE_MERCHANT_ID,
+    BRAINTREE_PUBLIC_KEY,
+    BRAINTREE_PRIVATE_KEY
+)
 
